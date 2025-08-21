@@ -243,7 +243,7 @@ struct BenchmarkRunnerGemm {
     );
 
 #if defined(CUTLASS_ENABLE_SYCL)
-    syclcompat::wait();
+    cutlasscompat::wait();
 #else
     cudaDeviceSynchronize();
 #endif
@@ -260,7 +260,7 @@ struct BenchmarkRunnerGemm {
           block_ref_D.get(), block_ref_D.get(), block_Aux[0].get(), block_D.size());
     }
 
-    syclcompat::wait();
+    cutlasscompat::wait();
 
     // Check if output from CUTLASS kernel and reference kernel are equal or not
     bool passed = reference::device::BlockCompareEqual(
@@ -356,7 +356,7 @@ struct BenchmarkRunnerGemm {
     gemm_op.run();
 
 #if defined(CUTLASS_ENABLE_SYCL)
-    syclcompat::wait();
+    cutlasscompat::wait();
 #else
     cudaDeviceSynchronize();
 #endif

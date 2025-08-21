@@ -437,7 +437,7 @@ public:
       // The current scale load atom (1x32) gives 2 scale values to
       // each thread. All threads need access to all other threads
       // scale values, and each scale value is reused twice (unrolled)
-      auto sg = syclcompat::get_nd_item<1>().get_sub_group();
+      auto sg = cutlasscompat::get_nd_item<1>().get_sub_group();
       CUTLASS_PRAGMA_NO_UNROLL
       for (int i = 0; i < 16; ++i) {
         if constexpr (ModeHasScalesZeroA){
@@ -504,7 +504,7 @@ public:
 
     // Instantiate the MMA object and get thread slice
     TiledMma tiled_mma;
-    auto sg = syclcompat::get_nd_item<1>().get_sub_group();
+    auto sg = cutlasscompat::get_nd_item<1>().get_sub_group();
     auto first_thread_in_sg_idx = sg.get_group_linear_id() * DispatchPolicy::SubgroupSize;
     auto thr_mma = tiled_mma.get_slice(first_thread_in_sg_idx);
 
